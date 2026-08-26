@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft de Basquete - SportsBar</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b0e14'/%3E%3Cpath fill='%23ff5500' d='M12 3a4 4 0 0 0-4 4v2H7a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-1V7a4 4 0 0 0-4-4Zm0 2a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2Z'/%3E%3C/svg%3E">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="main-bg text-white min-vh-100 d-flex flex-column">
+
+    <div id="app-navbar"></div>
+
+    <div id="auth-loading" class="container my-auto py-5 text-center">
+        <div class="spinner-border text-orange" role="status"></div>
+    </div>
+
+    <main class="container py-5 auth-content d-none flex-grow-1" style="max-width: 720px;">
+        <div class="text-center mb-4 animate-in">
+            <div class="badge bg-orange-subtle text-orange px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 fs-6">
+                <i class="bi bi-dribbble me-1"></i> Basquete
+            </div>
+            <h1 class="display-5 fw-black text-uppercase">Monte o seu Jogador</h1>
+            <p class="text-secondary">Escolha o time da NBA, defina o nome e distribua os atributos.</p>
+        </div>
+
+        <div id="aviso-substituir" class="alert alert-warning small d-none" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+            Você já tem um jogador de basquete. Ao confirmar, ele será substituído e a temporada simulada será apagada.
+        </div>
+
+        <form id="form-draft" class="card card-custom card-static p-4 animate-in animate-in-delay-1">
+            <div class="card-body">
+
+                <div class="row g-3 mb-2">
+                    <div class="col-sm-7">
+                        <label for="nome" class="form-label">Nome do Jogador</label>
+                        <input type="text" class="form-control" id="nome" required maxlength="30" placeholder="Ex: Jorge Silva">
+                    </div>
+                    <div class="col-sm-5">
+                        <label for="posicao" class="form-label">Posição</label>
+                        <select id="posicao" class="form-select" required>
+                            <option value="PG">Armador (PG)</option>
+                            <option value="SG">Ala-Armador (SG)</option>
+                            <option value="SF">Ala (SF)</option>
+                            <option value="PF">Ala-Pivô (PF)</option>
+                            <option value="C">Pivô (C)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="time" class="form-label">Time da NBA</label>
+                    <select id="time" class="form-select" required></select>
+                </div>
+
+                <hr class="border-secondary border-opacity-25">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="d-flex align-items-center gap-2">
+                        <span class="icon-badge" style="width: 32px; height: 32px; font-size: 0.9rem;"><i class="bi bi-sliders"></i></span>
+                        <span class="form-label mb-0">Atributos</span>
+                    </span>
+                    <span class="small text-secondary">Pontos: <strong id="total-atributos" class="text-orange">0</strong></span>
+                </div>
+
+                <div class="d-flex flex-column gap-2 mb-4">
+                    <div class="attr-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="arremesso" class="form-label mb-0 d-flex align-items-center gap-2"><span class="attr-icon"><i class="bi bi-bullseye"></i></span>Arremesso</label>
+                            <span id="arremesso-valor" class="text-orange fw-bold fs-5">70</span>
+                        </div>
+                        <input type="range" class="form-range" id="arremesso" min="40" max="99" value="70">
+                    </div>
+                    <div class="attr-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="finalizacao" class="form-label mb-0 d-flex align-items-center gap-2"><span class="attr-icon"><i class="bi bi-basket3-fill"></i></span>Finalização</label>
+                            <span id="finalizacao-valor" class="text-orange fw-bold fs-5">70</span>
+                        </div>
+                        <input type="range" class="form-range" id="finalizacao" min="40" max="99" value="70">
+                    </div>
+                    <div class="attr-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="passe" class="form-label mb-0 d-flex align-items-center gap-2"><span class="attr-icon"><i class="bi bi-send-arrow-up-fill"></i></span>Passe</label>
+                            <span id="passe-valor" class="text-orange fw-bold fs-5">65</span>
+                        </div>
+                        <input type="range" class="form-range" id="passe" min="40" max="99" value="65">
+                    </div>
+                    <div class="attr-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="defesa" class="form-label mb-0 d-flex align-items-center gap-2"><span class="attr-icon"><i class="bi bi-shield-fill"></i></span>Defesa</label>
+                            <span id="defesa-valor" class="text-orange fw-bold fs-5">60</span>
+                        </div>
+                        <input type="range" class="form-range" id="defesa" min="40" max="99" value="60">
+                    </div>
+                    <div class="attr-row">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="fisico" class="form-label mb-0 d-flex align-items-center gap-2"><span class="attr-icon"><i class="bi bi-lightning-charge-fill"></i></span>Físico</label>
+                            <span id="fisico-valor" class="text-orange fw-bold fs-5">60</span>
+                        </div>
+                        <input type="range" class="form-range" id="fisico" min="40" max="99" value="60">
+                    </div>
+                </div>
+
+                <div class="stat-box p-3 text-center mb-4">
+                    <div class="rotulo">Overall (OVR)</div>
+                    <div class="valor" id="ovr-valor">0</div>
+                </div>
+
+                <div id="erro-draft" class="alert alert-danger py-2 small d-none" role="alert"></div>
+
+                <button type="submit" id="btn-confirmar" class="btn btn-orange w-100 fw-bold text-uppercase py-2">
+                    Confirmar Jogador <i class="bi bi-check-circle-fill ms-1"></i>
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/nba-teams.js"></script>
+    <script src="../js/draft.js"></script>
+    <script>
+        montarLayoutApp({
+            acoes: [{ tag: "a", href: "index.html", icon: "bi-arrow-left", label: "Voltar" }]
+        });
+
+        const attrIds = ["arremesso", "finalizacao", "passe", "defesa", "fisico"];
+        let dentroDoOrcamento = true;
+
+        const selectTime = document.getElementById("time");
+        ["Leste", "Oeste"].forEach((conf) => {
+            const grupo = document.createElement("optgroup");
+            grupo.label = "Conferência " + conf;
+            NBA_TEAMS.filter((t) => t.conf === conf)
+                .sort((a, b) => a.nome.localeCompare(b.nome))
+                .forEach((t) => {
+                    const opt = document.createElement("option");
+                    opt.value = t.id;
+                    opt.textContent = t.nome;
+                    grupo.appendChild(opt);
+                });
+            selectTime.appendChild(grupo);
+        });
+
+        ligarPontosDistribuidos(attrIds, "total-atributos", "ovr-valor", (soma, ovr, dentro) => {
+            dentroDoOrcamento = dentro;
+        });
+
+        let uidAtual = null;
+
+        exigirLogin((user) => {
+            uidAtual = user.uid;
+            db.collection("users").doc(user.uid).get().then((doc) => {
+                const dados = doc.exists ? doc.data() : {};
+                if (dados.basketball) {
+                    document.getElementById("aviso-substituir").classList.remove("d-none");
+                    document.getElementById("nome").value = dados.basketball.nome;
+                    document.getElementById("posicao").value = dados.basketball.posicao;
+                    document.getElementById("time").value = dados.basketball.timeId;
+                    attrIds.forEach((id) => {
+                        document.getElementById(id).value = dados.basketball.attrs[id];
+                    });
+                    document.getElementById(attrIds[0]).dispatchEvent(new Event("input"));
+                }
+            });
+        });
+
+        document.getElementById("form-draft").addEventListener("submit", (e) => {
+            e.preventDefault();
+            esconderErro("erro-draft");
+
+            if (!dentroDoOrcamento) {
+                mostrarErro("erro-draft", `A soma dos atributos não pode ultrapassar ${ORCAMENTO_ATRIBUTOS} pontos.`);
+                return;
+            }
+
+            const timeId = document.getElementById("time").value;
+            const time = NBA_TEAMS.find((t) => t.id === timeId);
+            const attrs = {};
+            attrIds.forEach((id) => { attrs[id] = Number(document.getElementById(id).value); });
+            const ovr = Math.round(attrIds.reduce((s, id) => s + attrs[id], 0) / attrIds.length);
+
+            const jogador = {
+                nome: document.getElementById("nome").value.trim(),
+                posicao: document.getElementById("posicao").value,
+                timeId: time.id,
+                timeNome: time.nome,
+                attrs: attrs,
+                ovr: ovr
+            };
+
+            const btn = document.getElementById("btn-confirmar");
+            btn.disabled = true;
+            btn.textContent = "A guardar...";
+
+            salvarJogador(uidAtual, "basketball", jogador)
+                .then(() => { window.location.href = "basquete-resultado.html"; })
+                .catch((erro) => {
+                    mostrarErro("erro-draft", "Erro ao guardar: " + erro.message);
+                    btn.disabled = false;
+                    btn.innerHTML = 'Confirmar Jogador <i class="bi bi-check-circle-fill ms-1"></i>';
+                });
+        });
+    </script>
+</body>
+</html>

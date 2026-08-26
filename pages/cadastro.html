@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - SportsBar</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b0e14'/%3E%3Cpath fill='%23ff5500' d='M12 3a4 4 0 0 0-4 4v2H7a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-1V7a4 4 0 0 0-4-4Zm0 2a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2Z'/%3E%3C/svg%3E">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="main-bg text-white">
+
+    <div class="auth-shell row g-0">
+        <!-- Painel de marca -->
+        <div class="col-lg-6 auth-brand-panel d-none d-lg-flex flex-column justify-content-between p-5">
+            <a href="login.html" class="brand-logo position-relative">
+                <i class="bi bi-lock-fill text-orange me-2"></i>SPORTS<span class="text-orange">BAR</span>
+            </a>
+
+            <div class="position-relative">
+                <h1 class="display-4 fw-black text-uppercase mb-3">Crie a sua<br>lenda esportiva.</h1>
+                <p class="text-secondary fs-5 mb-5" style="max-width: 480px;">
+                    Em menos de um minuto tem conta, jogador criado e pronto para a primeira simulação.
+                </p>
+
+                <div class="d-flex flex-column gap-4">
+                    <div class="auth-feature">
+                        <span class="icon-badge"><i class="bi bi-dribbble"></i></span>
+                        <div>
+                            <h5 class="fs-6 fw-bold mb-1">Basquete (NBA)</h5>
+                            <p class="text-secondary small mb-0">Escolha entre as 30 equipas e defina posição e atributos.</p>
+                        </div>
+                    </div>
+                    <div class="auth-feature">
+                        <span class="icon-badge"><i class="bi bi-trophy-fill"></i></span>
+                        <div>
+                            <h5 class="fs-6 fw-bold mb-1">Futebol (Premier League)</h5>
+                            <p class="text-secondary small mb-0">Jogue por uma das 20 equipas e dispute os 38 jogos da liga.</p>
+                        </div>
+                    </div>
+                    <div class="auth-feature">
+                        <span class="icon-badge"><i class="bi bi-lightning-charge-fill"></i></span>
+                        <div>
+                            <h5 class="fs-6 fw-bold mb-1">Grátis e instantâneo</h5>
+                            <p class="text-secondary small mb-0">Sem downloads. Cria a conta e já está a jogar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <small class="text-secondary position-relative">&copy; <span id="ano-rodape"></span> SportsBar</small>
+        </div>
+
+        <!-- Painel de formulário -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 py-5">
+            <div class="auth-card">
+                <div class="text-center mb-4 d-lg-none">
+                    <a href="login.html" class="brand-logo">
+                        <i class="bi bi-lock-fill text-orange me-2"></i>SPORTS<span class="text-orange">BAR</span>
+                    </a>
+                </div>
+
+                <h2 class="fw-bold fs-3 mb-1">Criar conta</h2>
+                <p class="text-secondary mb-4">Comece a montar o seu time agora.</p>
+
+                <div id="erro-cadastro" class="alert alert-danger py-2 small d-none" role="alert"></div>
+
+                <form id="form-cadastro" novalidate>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                            <input type="email" class="form-control" id="email" required autocomplete="username" placeholder="voce@email.com">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Palavra-passe</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                            <input type="password" class="form-control" id="senha" required autocomplete="new-password" minlength="6" placeholder="Mínimo 6 caracteres">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="senha2" class="form-label">Confirmar Palavra-passe</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                            <input type="password" class="form-control" id="senha2" required autocomplete="new-password" minlength="6" placeholder="Repita a palavra-passe">
+                        </div>
+                    </div>
+                    <button type="submit" id="btn-cadastro" class="btn btn-orange w-100 fw-bold text-uppercase py-2">
+                        <span class="btn-texto">Criar Conta <i class="bi bi-person-plus-fill ms-1"></i></span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </form>
+
+                <p class="text-center text-secondary small mt-4 mb-0">
+                    Já tem conta? <a href="login.html" class="text-orange fw-semibold text-decoration-none">Entrar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById("ano-rodape").textContent = new Date().getFullYear();
+        redirecionarSeLogado();
+
+        document.getElementById("form-cadastro").addEventListener("submit", (e) => {
+            e.preventDefault();
+            esconderErro("erro-cadastro");
+
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value;
+            const senha2 = document.getElementById("senha2").value;
+
+            if (senha !== senha2) {
+                mostrarErro("erro-cadastro", "As palavras-passe não coincidem.");
+                return;
+            }
+
+            const btn = document.getElementById("btn-cadastro");
+            btn.disabled = true;
+            btn.querySelector(".btn-texto").classList.add("d-none");
+            btn.querySelector(".spinner-border").classList.remove("d-none");
+
+            auth.createUserWithEmailAndPassword(email, senha)
+                .then((cred) => db.collection("users").doc(cred.user.uid).set({
+                    email: email,
+                    criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+                }))
+                .then(() => { window.location.href = "index.html"; })
+                .catch((erro) => {
+                    mostrarErro("erro-cadastro", mensagemErroFirebase(erro));
+                    btn.disabled = false;
+                    btn.querySelector(".btn-texto").classList.remove("d-none");
+                    btn.querySelector(".spinner-border").classList.add("d-none");
+                });
+        });
+    </script>
+</body>
+</html>

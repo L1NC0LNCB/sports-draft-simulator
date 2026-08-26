@@ -1,54 +1,141 @@
-/* Importação da fonte estilo Gaming */
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;800&display=swap');
+/* ==========================================================================
+   SportsBar — Design System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --rl-orange: #ff5500;
+    --rl-orange-dark: #e64d00;
+    --rl-orange-light: #ff7a33;
+    --rl-bg-0: #05070a;
+    --rl-bg-1: #0b0e14;
+    --rl-bg-2: #161b22;
+    --rl-surface: rgba(22, 27, 34, 0.6);
+    --rl-surface-strong: rgba(22, 27, 34, 0.9);
+    --rl-border: rgba(255, 255, 255, 0.08);
+    --rl-border-strong: rgba(255, 255, 255, 0.15);
+    --rl-text-muted: rgba(255, 255, 255, 0.6);
+    --rl-radius: 16px;
+    --rl-radius-sm: 10px;
+    --rl-shadow-orange: 0 10px 30px rgba(255, 85, 0, 0.15);
+}
+
+* { scrollbar-color: var(--rl-orange) rgba(255, 255, 255, 0.06); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); }
+::-webkit-scrollbar-thumb { background: var(--rl-orange); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--rl-orange-light); }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #0b0e14;
+    background-color: var(--rl-bg-1);
 }
 
 /* Fundo com degradê escuro */
 .main-bg {
-    background: radial-gradient(circle at top, #1a2332 0%, #080a0f 100%);
+    background:
+        radial-gradient(circle at top, #1a2332 0%, #080a0f 55%),
+        var(--rl-bg-0);
+    position: relative;
 }
 
 /* Estilo do Título Principal */
-h1, h2, h3, .navbar-brand {
+h1, h2, h3, h4, .navbar-brand, .brand-logo {
     font-family: 'Teko', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
+
+.fw-black { font-weight: 800; }
 
 /* Cores do Tema */
-.text-orange {
-    color: #ff5500 !important;
-}
+.text-orange { color: var(--rl-orange) !important; }
 
 .bg-dark-glass {
-    background-color: rgba(13, 17, 23, 0.8);
-    backdrop-filter: blur(10px);
+    background-color: rgba(13, 17, 23, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 
-.bg-orange-subtle {
-    background-color: rgba(255, 85, 0, 0.15);
+.bg-orange-subtle { background-color: rgba(255, 85, 0, 0.15); }
+
+.bg-orange { background-color: var(--rl-orange) !important; }
+
+.progress { border-radius: 6px; overflow: hidden; }
+.progress-bar { transition: width 0.6s ease; }
+
+/* ----- Navbar da aplicação ----- */
+.app-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
 }
+
+.brand-logo {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #fff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+.brand-logo:hover { opacity: 0.85; color: #fff; }
+
+.brand-logo i { font-size: 1.4rem; }
+
+/* ----- Rodapé partilhado ----- */
+.app-footer {
+    background-color: rgba(13, 17, 23, 0.85);
+    border-top: 1px solid var(--rl-border);
+}
+
+.app-footer a { color: var(--rl-text-muted); text-decoration: none; }
+.app-footer a:hover { color: var(--rl-orange); }
 
 /* Cards Estilo 82-0 */
 .card-custom {
-    background: rgba(22, 27, 34, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
+    background: var(--rl-surface);
+    border: 1px solid var(--rl-border);
+    border-radius: var(--rl-radius);
     backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card-custom:hover {
     transform: translateY(-5px);
     border-color: rgba(255, 85, 0, 0.5);
-    box-shadow: 0 10px 30px rgba(255, 85, 0, 0.15);
+    box-shadow: var(--rl-shadow-orange);
+}
+
+.card-static:hover {
+    transform: none;
+    border-color: var(--rl-border);
+    box-shadow: none;
+}
+
+/* Ícone circular usado em cabeçalhos de secção */
+.icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 85, 0, 0.12);
+    border: 1px solid rgba(255, 85, 0, 0.3);
+    color: var(--rl-orange);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
 /* Botão Laranja Neon */
 .btn-orange {
-    background-color: #ff5500;
+    background: linear-gradient(135deg, var(--rl-orange) 0%, var(--rl-orange-dark) 100%);
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -56,18 +143,203 @@ h1, h2, h3, .navbar-brand {
     transition: all 0.2s ease;
 }
 
-.btn-orange:hover {
-    background-color: #e64d00;
+.btn-orange:hover,
+.btn-orange:focus {
     color: #ffffff;
-    box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5);
+    box-shadow: 0 6px 22px rgba(255, 85, 0, 0.5);
+    transform: translateY(-1px);
 }
 
+.btn-orange:disabled { opacity: 0.6; transform: none; }
+
 .btn-outline-orange {
-    border: 1px solid #ff5500;
-    color: #ff5500;
+    border: 1px solid var(--rl-orange);
+    color: var(--rl-orange);
+    transition: all 0.2s ease;
 }
 
 .btn-outline-orange:hover {
-    background-color: #ff5500;
+    background-color: var(--rl-orange);
     color: #ffffff;
+}
+
+/* Inputs e Selects no tema escuro */
+.form-control,
+.form-select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--rl-border-strong);
+    color: #ffffff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--rl-orange);
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 85, 0, 0.25);
+}
+
+.form-control::placeholder { color: rgba(255, 255, 255, 0.4); }
+
+.form-select option { background-color: var(--rl-bg-2); color: #ffffff; }
+
+.input-group-text {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--rl-border-strong);
+    color: var(--rl-text-muted);
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: var(--rl-orange);
+    color: var(--rl-orange);
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+/* Sliders de atributos */
+.form-range::-webkit-slider-thumb {
+    background: var(--rl-orange);
+    box-shadow: 0 0 0 4px rgba(255, 85, 0, 0.15);
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--rl-orange);
+    box-shadow: 0 0 0 4px rgba(255, 85, 0, 0.15);
+}
+
+.form-range::-webkit-slider-runnable-track { background: rgba(255, 255, 255, 0.15); }
+
+.attr-row {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    border-radius: var(--rl-radius-sm);
+    padding: 0.85rem 1rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.attr-row:hover { border-color: var(--rl-border-strong); background: rgba(255, 255, 255, 0.04); }
+
+.attr-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(255, 85, 0, 0.12);
+    color: var(--rl-orange);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+/* ----- Auth split-screen (login / cadastro) ----- */
+.auth-shell { min-height: 100vh; }
+
+.auth-brand-panel {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 85, 0, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(255, 85, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(160deg, #10141d 0%, #05070a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-brand-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+}
+
+.auth-feature {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+}
+
+.auth-card { max-width: 420px; width: 100%; }
+
+/* Tabelas no tema escuro */
+.table-dark-custom {
+    --bs-table-bg: transparent;
+    --bs-table-color: #ffffff;
+    --bs-table-border-color: rgba(255, 255, 255, 0.08);
+}
+
+.table-dark-custom thead th {
+    position: sticky;
+    top: 0;
+    background: var(--rl-bg-2);
+    z-index: 1;
+    border-bottom: 1px solid var(--rl-border-strong) !important;
+}
+
+.table-dark-custom tbody tr.linha-usuario {
+    background-color: rgba(255, 85, 0, 0.18) !important;
+    font-weight: 700;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--rl-border);
+    border-radius: 12px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.stat-box:hover { border-color: rgba(255, 85, 0, 0.35); background: rgba(255, 255, 255, 0.06); }
+
+.stat-box .rotulo {
+    font-size: 0.72rem;
+    color: var(--rl-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+}
+
+.stat-box .valor {
+    font-family: 'Teko', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--rl-orange);
+}
+
+/* Passos "Como funciona" */
+.step-num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--rl-orange);
+    color: #fff;
+    font-family: 'Teko', sans-serif;
+    font-size: 1.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Animação de entrada suave */
+@keyframes rlFadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { animation: rlFadeInUp 0.5s ease both; }
+.animate-in-delay-1 { animation-delay: 0.08s; }
+.animate-in-delay-2 { animation-delay: 0.16s; }
+
+@media (max-width: 576px) {
+    .display-3 { font-size: 2.2rem; }
+    .display-5 { font-size: 1.9rem; }
+    .stat-box .valor { font-size: 1.7rem; }
+    .brand-logo { font-size: 1.4rem; }
 }
